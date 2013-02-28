@@ -167,7 +167,7 @@ namespace kinect_theremin
         private float CalcMaxFreq()
         {
             // Get a frequency two octaves higher than the root frequency (each octave is 2x the root)
-            return _minFreq * 4;
+            return _minFreq * 2;
         }
     }
 }
