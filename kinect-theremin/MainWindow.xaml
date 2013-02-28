@@ -3,6 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="600" Width="900">
     <Grid>
-        
+        <Rectangle Canvas.Left="-8" Canvas.Top="-7" Fill="Black" Margin="215,0,0,0" Name="rectangle1" Stroke="Black" />
+        <Label Content="Kinect Theremin" FontSize="24" FontWeight="Bold" Height="52" HorizontalAlignment="Left" Margin="10,12,0,0" Name="label1" VerticalAlignment="Top" Width="197" />
+        <Label Content="by Ben Centra" FontSize="12" FontWeight="Normal" Height="30" HorizontalAlignment="Left" Margin="59,49,0,0" Name="label4" VerticalAlignment="Top" />
+        <Button Content="Play" FontSize="14" Height="33" HorizontalAlignment="Left" Margin="43,91,0,0" Name="playButton" VerticalAlignment="Top" Width="125" Click="playButton_Click" />
+        <Label Content="Options:" FontSize="14" FontWeight="Bold" Height="30" HorizontalAlignment="Left" Margin="8,130,0,0" Name="label5" VerticalAlignment="Top" />
+        <Label Content="Key: " FontSize="14" FontWeight="Normal" Height="30" HorizontalAlignment="Left" Margin="8,166,0,0" Name="label6" VerticalAlignment="Top" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="47,171,0,0" Name="keyBox" VerticalAlignment="Top" Width="70" SelectionChanged="keyBox_Changed" />
+        <Image Height="150" HorizontalAlignment="Left" Margin="8,399,0,0" Name="rgbImage" Opacity="1" Stretch="Fill" VerticalAlignment="Top" Width="200" />
+        <Rectangle Height="480" HorizontalAlignment="Left" Margin="227,11,0,0" Name="rectangle2" Stroke="Black" VerticalAlignment="Top" Width="640" Fill="White" />
+        <Image Height="479" HorizontalAlignment="Left" Margin="227,12,0,0" Name="skeletonImage" Stretch="Fill" VerticalAlignment="Top" Width="640" />
+        <Label Content="← Amplitude" FontSize="24" FontWeight="Bold" Foreground="White" Height="42" HorizontalAlignment="Left" Margin="227,504,0,0" Name="leftLabel" VerticalAlignment="Top" Width="161" />
+        <Label Content="Frequency:" FontSize="14" FontWeight="Normal" HorizontalAlignment="Left" Margin="8,334,0,197" Name="label8" />
+        <Label Content="Amplitude:" FontSize="14" FontWeight="Normal" Height="30" HorizontalAlignment="Left" Margin="8,363,0,0" Name="label9" VerticalAlignment="Top" />
+        <Label Content="???" FontSize="14" FontWeight="Normal" HorizontalAlignment="Left" Margin="91,334,0,197" Name="freqLabel" Width="116" />
+        <Label Content="???" FontSize="14" FontWeight="Normal" HorizontalAlignment="Left" Margin="91,363,0,168" Name="ampLabel" Width="116" />
+        <Label Content="Frequency →" FontSize="24" FontWeight="Bold" Foreground="White" Height="42" HorizontalAlignment="Left" Margin="713,504,0,0" Name="rightLabel" VerticalAlignment="Top" Width="154" />
+        <Canvas Height="479" HorizontalAlignment="Left" Margin="227,12,0,0" Name="markerCanvas" VerticalAlignment="Top" Width="640" />
+        <CheckBox Content="Left Handed" Height="18" HorizontalAlignment="Left" Margin="12,211,0,0" Name="checkBox1" VerticalAlignment="Top" FontSize="14" />
+        <CheckBox Content="Use Guides" FontSize="14" Height="21" HorizontalAlignment="Left" Margin="12,246,0,0" Name="checkBox2" VerticalAlignment="Top" />
     </Grid>
 </Window>
