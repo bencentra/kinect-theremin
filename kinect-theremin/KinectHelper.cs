@@ -15,6 +15,10 @@ using Microsoft.Kinect;
  *  
  *  A helper class containing all the important operations for 
  *  interacting with the Microsoft Kinect in a C# WPF Application.
+ *  
+ *  Version 1.01
+ *  Changes:
+ *      - Can set the background of the skeletonBitmap using ChangeSkeletonBackgroundColor()
  *                       
  *  Written by Ben Centra, with inspiration from:
  *  - http://www.renauddumont.be/en/2012/kinect-sdk-1-0-1-introduction-a-lapi
@@ -36,7 +40,7 @@ namespace kinect_theremin
         public bool UseDepthImageStream { get; set; } // DepthImageStream (Depth Data)
         public bool UseSkeletonStream { get; set; } // SkeletonStream (Skeleton Tracking)
         public bool UseAudioStream { get; set; } // AudioStream 
-        
+
         // ColorImageStream variables
         private byte[] colorStreamData; // Byte array of image data from a ColorImageFrame
         public WriteableBitmap colorBitmap { get; set; } // WriteableBitmap to display the image data
@@ -57,6 +61,7 @@ namespace kinect_theremin
         private const double JointThickness = 3;
         private const double BodyCenterThickness = 10;
         private const double ClipBoundsThickness = 10;
+        private Brush backgroundBrush = Brushes.White;
         private readonly Brush centerPointBrush = Brushes.Blue;
         private readonly Brush trackedJointBrush = Brushes.LightBlue;
         private readonly Brush inferredJointBrush = Brushes.Yellow;
@@ -96,7 +101,7 @@ namespace kinect_theremin
                 SkeletonDataChanged(this, e);
             }
         }
-        
+
         // Default Constructor 
         // NOTE: Everything will have to be enabled manually
         public KinectHelper()
@@ -240,7 +245,7 @@ namespace kinect_theremin
                     }
                     catch (NullReferenceException ex)
                     {
-                        Console.WriteLine(ex.TargetSite +" - " + ex.Message);
+                        Console.WriteLine(ex.TargetSite + " - " + ex.Message);
                     }
                 }
             }
@@ -318,8 +323,8 @@ namespace kinect_theremin
             using (DrawingContext dc = this.drawingGroup.Open())
             {
                 // Draw a black background the size of our render
-                dc.DrawRectangle(Brushes.White, null, new Rect(0, 0, RenderWidth, RenderHeight));
-                
+                dc.DrawRectangle(backgroundBrush, null, new Rect(0, 0, RenderWidth, RenderHeight));
+
                 //Draw each Skeleton
                 if (skeletonStreamData.Length != 0)
                 {
@@ -448,9 +453,15 @@ namespace kinect_theremin
                 }
             }
         }
+
+        // Change the background colors of the skeletonBitmap
+        public void ChangeSkeletonBackgroundColor(Brush brush)
+        {
+            backgroundBrush = brush;
+        }
     }
 
-    // TO-DO: Move these into separate class files
+    // TO-DO: Move these into separate class files?
 
     /*
      *  ColorDataChangeEventArgs - Information for custom event fired when ColorStream data changes
@@ -482,7 +493,7 @@ namespace kinect_theremin
 
     /*
      *  SkeletonDataChangeEventArgs - Information for custom event fired when SkeletonStream data changes
-     */ 
+     */
     public class SkeletonDataChangeEventArgs
     {
         public readonly Skeleton[] skeletons;
@@ -496,6 +507,7 @@ namespace kinect_theremin
     /*
      * AudioDataChangeEventArgs - Information for custom event fired when a new section of the audio buffer is ready
      */
+    /*
     public class AudioDataChangeEventArgs
     {
         public readonly byte[] audioBuffer;
@@ -505,5 +517,6 @@ namespace kinect_theremin
             this.audioBuffer = audioBuffer;
         }
     }
- 
+    */
+
 }
