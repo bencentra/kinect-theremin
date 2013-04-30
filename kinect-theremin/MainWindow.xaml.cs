@@ -23,6 +23,8 @@ namespace kinect_theremin
     /// </summary>
     public partial class MainWindow : Window
     {
+        private const int FREQ_INTERVALS = 12;
+
         // Object for playing the sine wave
         private SineWavePlayer _player;
 
@@ -33,9 +35,8 @@ namespace kinect_theremin
         private JointType _freqHand;
         private JointType _ampHand;
 
-        // Intervals (for drawing guides/determining frequency);
+        // Intervals (for drawing guides/determining frequency)
         private double _freqInterval;
-        //double _ampInterval;
 
         // Boolean to enable/disable frequency guides
         private bool _enableGuides = true;
@@ -61,8 +62,7 @@ namespace kinect_theremin
             _freqHand = JointType.HandRight;
             _ampHand = JointType.HandLeft;
             // Draw the guides
-            _freqInterval = guideCanvas.Height / 12;
-            //_ampInterval = guideCanvas.Height / 4;
+            _freqInterval = (guideCanvas.Height) / (FREQ_INTERVALS);
             DrawGuides();
             // Instantiate and initialize the KinectHelper
             _helper = new KinectHelper(true, false, true);
@@ -128,8 +128,13 @@ namespace kinect_theremin
                 return;
 
             // Get the left and right hand positions from the skeleton
-            Point freqHandPos = _helper.SkeletonPointToScreen(skel.Joints[_freqHand].Position);
-            Point ampHandPos = _helper.SkeletonPointToScreen(skel.Joints[_ampHand].Position);
+            //Point freqHandPos = _helper.SkeletonPointToScreen(skel.Joints[_freqHand].Position);
+            ColorImagePoint tempFreq = _helper.PointMapper.MapSkeletonPointToColorPoint(skel.Joints[_freqHand].Position, ColorImageFormat.RgbResolution1280x960Fps12);
+            Point freqHandPos = new Point(tempFreq.X, tempFreq.Y);
+            Console.WriteLine("(" + tempFreq.X + "," + tempFreq.Y + ")");
+            //Point ampHandPos = _helper.SkeletonPointToScreen(skel.Joints[_ampHand].Position);
+            ColorImagePoint tempAmp = _helper.PointMapper.MapSkeletonPointToColorPoint(skel.Joints[_ampHand].Position, ColorImageFormat.RgbResolution1280x960Fps12);
+            Point ampHandPos = new Point(tempAmp.X, tempAmp.Y);
 
             // Determine the frequency based on the position of the right hand
             double freqValue = 1 - freqHandPos.Y / skeletonImage.Height;
@@ -201,49 +206,30 @@ namespace kinect_theremin
         // Draw frequency "guides" for differentiating each note
         private void DrawGuides()
         {
-            int width = 25;
+            int width = 50;
             int height = 5;
             double freqX;
-            //double ampX;
             // Determine which side to draw each set of guides on
             if (_freqHand == JointType.HandRight)
             {
                 freqX = guideCanvas.Width - width;
-                //ampX = 0;            
             }
             else
             {
                 freqX = 0;
-                //ampX = guideCanvas.Width - width;
             }
             // Draw the frequency guides
-            for (int i = 0; i < 11; i++)
+            for (int i = 1; i < FREQ_INTERVALS ; i++)
             {
                 Rectangle guide = new Rectangle();
                 guide.Width = width;
                 guide.Height = height;
                 guide.Fill = new SolidColorBrush(Colors.Gray);
-                //guide.Stroke = new SolidColorBrush(Colors.Black);
                 guide.StrokeThickness = 1;
                 guideCanvas.Children.Add(guide);
-                Canvas.SetTop(guide, _freqInterval * (i + 1));
+                Canvas.SetTop(guide, _freqInterval * (i));
                 Canvas.SetLeft(guide, freqX);
             }
-            // Draw the amplitude guides
-            /*
-            for (int i = 0; i < 3; i++)
-            {
-                Rectangle guide = new Rectangle();
-                guide.Width = width;
-                guide.Height = height;
-                guide.Fill = new SolidColorBrush(Colors.Gray);
-                //guide.Stroke = new SolidColorBrush(Colors.Black);
-                guide.StrokeThickness = 1;
-                guideCanvas.Children.Add(guide);
-                Canvas.SetTop(guide, _ampInterval * (i + 1));
-                Canvas.SetLeft(guide, ampX);
-            }
-            */
         }
 
         // Clear frequency guides
@@ -266,9 +252,9 @@ namespace kinect_theremin
 
         private float GetChromaticNoteFrequency(double value)
         {
-            int chromaticNote = (int)Math.Ceiling(value * 12);
-            double chromaticValue = (double) chromaticNote / 12;
-            Console.WriteLine(chromaticNote+ " --- "+chromaticValue);
+            int chromaticNote = (int)Math.Floor(value * (FREQ_INTERVALS + 1));
+            double chromaticValue = (double)chromaticNote / (FREQ_INTERVALS);
+            Console.WriteLine(chromaticNote + " --- " + chromaticValue);
             float chromaticFreq = LinearToLog(chromaticValue);
             return chromaticFreq;
         }
