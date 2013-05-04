@@ -10,22 +10,12 @@ namespace kinect_theremin
 {
     public class SineWavePlayer
     {
-        // Map keys to root note frequencies
-        public readonly Dictionary<String, float> frequencyDict = new Dictionary<String, float>()
-        {
-            {"C", 261.63f },
-            {"C#", 277.18f },
-            {"D", 293.66f },
-            {"D#", 311.13f },
-            {"E", 329.63f },
-            {"F", 349.23f },
-            {"F#", 369.99f },
-            {"G", 392.00f },
-            {"G#", 415.30f },
-            {"A", 440.00f },
-            {"A#", 466.16f },
-            {"B", 493.88f }
-        };
+        // Parallel arrays of notes and their corresponding frequency
+        private readonly String[] _notesArr = new String[12] { "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B" };
+        //private readonly String[] _notesArr = new String[12] { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+        private readonly float[] _freqsArr = new float[12] { 261.63f, 277.18f, 293.66f, 311.13f, 329.63f, 349.23f, 369.99f, 392.00f, 415.30f, 440.00f, 466.16f, 493.88f };
+        public List<String> Notes { get { return _notesArr.ToList(); } }
+        public List<float> Frequencies { get { return _freqsArr.ToList(); } }
 
         // Variables for playing a sine wave
         private WaveOut _wave;
@@ -72,10 +62,11 @@ namespace kinect_theremin
         // Default Constructor
         public SineWavePlayer()
         {
-            _minFreq = frequencyDict.ElementAt(0).Value;
+            _minFreq = Frequencies.ElementAt(0);
             _maxFreq = CalcMaxFreq();
             _frequency = _minFreq;
             _amplitude = 0.25f;
+            Console.WriteLine("AAAAAAAA " + Notes.Count + " " + Frequencies.Count);
         }
 
         // Stop or start the wave
@@ -156,10 +147,10 @@ namespace kinect_theremin
         {
             // If the key isn't in the frequencyDict, bail
             key = key.ToUpper();
-            if (!frequencyDict.ContainsKey(key))
+            if (!Notes.Contains(key))
                 return;
             // Set the min and max frequency according to the new root frequency
-            _minFreq = frequencyDict[key];
+            _minFreq = Frequencies.ElementAt(Notes.IndexOf(key));
             _maxFreq = CalcMaxFreq();
         }
 

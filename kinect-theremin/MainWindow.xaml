@@ -7,24 +7,27 @@
         <Label Content="Kinect Theremin" FontSize="48" FontWeight="Bold" Height="71" HorizontalAlignment="Left" Margin="38,12,0,0" Name="label1" VerticalAlignment="Top" Width="398" HorizontalContentAlignment="Center" />
         <Label Content="by Ben Centra" FontSize="24" FontWeight="Normal" Height="49" HorizontalAlignment="Left" Margin="156,89,0,0" Name="label4" VerticalAlignment="Top" />
         <Button Content="Play" FontSize="24" Height="67" HorizontalAlignment="Left" Margin="109,144,0,0" Name="playButton" VerticalAlignment="Top" Width="250" Click="playButton_Click" />
-        <Label Content="Options:" FontSize="24" FontWeight="Bold" Height="45" HorizontalAlignment="Left" Margin="12,277,0,0" Name="label5" VerticalAlignment="Top" />
-        <Label Content="Key: " FontSize="24" FontWeight="Normal" Height="51" HorizontalAlignment="Left" Margin="13,349,0,0" Name="label6" VerticalAlignment="Top" />
-        <ComboBox Height="40" HorizontalAlignment="Left" Margin="83,353,0,0" Name="keyBox" VerticalAlignment="Top" Width="97" SelectionChanged="keyBox_Changed" FontSize="18" />
+        <Label Content="Options:" FontSize="32" FontWeight="Bold" Height="59" HorizontalAlignment="Left" Margin="12,263,0,0" Name="label5" VerticalAlignment="Top" />
+        <Label Content="Select Key: " FontSize="24" FontWeight="Normal" Height="51" HorizontalAlignment="Left" Margin="12,328,0,0" Name="label6" VerticalAlignment="Top" />
+        <ComboBox Height="40" HorizontalAlignment="Left" Margin="151,333,0,0" Name="keyBox" VerticalAlignment="Top" Width="97" SelectionChanged="keyBox_Changed" FontSize="18" />
         <Label Content="Amplitude" FontSize="36" FontWeight="Bold" Foreground="White" Height="64" HorizontalAlignment="Right" Margin="0,972,1037,0" Name="leftLabel" VerticalAlignment="Top" Width="266" />
-        <Label Content="Frequency:" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" Margin="14,455,0,539" Name="label8" />
-        <Label Content="Amplitude:" FontSize="24" FontWeight="Bold" Height="51" HorizontalAlignment="Left" Margin="14,539,0,0" Name="label9" VerticalAlignment="Top" />
-        <Label Content="???" FontSize="24" FontWeight="Normal" HorizontalAlignment="Left" Margin="173,455,0,539" Name="freqLabel" Width="216" />
-        <Label Content="???" FontSize="24" FontWeight="Normal" HorizontalAlignment="Left" Margin="173,539,0,462" Name="ampLabel" Width="216" />
+        <Label Content="Frequency:" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" Margin="13,601,0,393" Name="label8" />
+        <Label Content="Amplitude:" FontSize="24" FontWeight="Bold" Height="51" HorizontalAlignment="Left" Margin="13,676,0,0" Name="label9" VerticalAlignment="Top" />
+        <Label Content="???" FontSize="24" FontWeight="Normal" HorizontalAlignment="Left" Margin="172,601,0,393" Name="freqLabel" Width="264" />
+        <Label Content="???" FontSize="24" FontWeight="Normal" HorizontalAlignment="Left" Margin="172,676,0,325" Name="ampLabel" Width="264" />
         <Label Content="Frequency" FontSize="36" FontWeight="Bold" Foreground="White" Height="64" Margin="1562,972,0,0" Name="rightLabel" VerticalAlignment="Top" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Width="218" />
-        <CheckBox Content="Left Handed" Height="36" HorizontalAlignment="Left" Margin="242,337,0,0" Name="leftHandCheckbox" VerticalAlignment="Top" FontSize="24" Checked="leftHandCheckbox_Checked" Unchecked="leftHandCheckbox_Checked" />
-        <CheckBox Content="Disable Guides" FontSize="24" Height="37" HorizontalAlignment="Left" Margin="242,379,0,0" Name="useGuidesCheckbox" VerticalAlignment="Top" Checked="useGuidesCheckbox_Checked" Unchecked="useGuidesCheckbox_Checked" />
+        <CheckBox Content="Left Handed" Height="36" HorizontalAlignment="Left" Margin="12,396,0,0" Name="leftHandCheckbox" VerticalAlignment="Top" FontSize="24" Checked="leftHandCheckbox_Checked" Unchecked="leftHandCheckbox_Checked" />
+        <CheckBox Content="Disable Guides" FontSize="24" Height="37" HorizontalAlignment="Left" Margin="12,449,0,0" Name="useGuidesCheckbox" VerticalAlignment="Top" Checked="useGuidesCheckbox_Checked" Unchecked="useGuidesCheckbox_Checked" />
         <Label Content="← " Height="54" HorizontalAlignment="Left" Margin="561,972,0,0" Name="label2" VerticalAlignment="Top" Foreground="White" FontSize="36" Width="34" />
         <Label Content="→" Height="54" HorizontalAlignment="Right" Margin="0,972,70,0" Name="label3" VerticalAlignment="Top" Foreground="White" FontSize="36" />
-        <Image Height="300" HorizontalAlignment="Left" Margin="38,729,0,0" Name="rgbImage" Opacity="1" Stretch="Fill" VerticalAlignment="Top" Width="400" />
         <Rectangle Height="960" HorizontalAlignment="Left" Margin="560,20,0,0" Name="rectangle2" Stroke="Black" VerticalAlignment="Top" Width="1280" Fill="White" />
-        <Image Height="960" HorizontalAlignment="Left" Margin="560,20,0,0" Name="skeletonImage" Stretch="Fill" VerticalAlignment="Top" Width="1280" />
-        <Canvas Height="960" HorizontalAlignment="Left" Margin="560,20,0,0" Name="guideCanvas" VerticalAlignment="Top" Width="1280" Background="{x:Null}" />
-        <Label Content="(Pitch)" FontSize="18" FontWeight="Normal" HorizontalAlignment="Left" Margin="48,491,0,503" Name="label7" HorizontalContentAlignment="Center" />
-        <Label Content="(Volume)" FontSize="18" FontWeight="Normal" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="39,576,0,418" Name="label10" />
+        <Image Height="960" HorizontalAlignment="Left" Margin="559,20,0,0" Name="rgbImage" Opacity="1" Stretch="Fill" VerticalAlignment="Top" Width="1280" />
+        <Image Height="960" HorizontalAlignment="Left" Margin="560,20,0,0" Name="skeletonImage" Opacity=".5" Stretch="Fill" VerticalAlignment="Top" Width="1280" />
+        <Canvas Height="880" HorizontalAlignment="Left" Margin="560,100,0,0" Name="guideCanvas" VerticalAlignment="Top" Width="1280" Background="{x:Null}" />
+        <Label Content="(Pitch)" FontSize="18" FontWeight="Normal" HorizontalAlignment="Left" Margin="47,637,0,357" Name="label7" HorizontalContentAlignment="Center" />
+        <Label Content="(Volume)" FontSize="18" FontWeight="Normal" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="38,713,0,281" Name="label10" />
+        <Label Content="???" FontSize="108" FontWeight="Bold" HorizontalAlignment="Center" Margin="12,833,1427,29" Name="tunerLabel" Width="459" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <Label Content="Current Note:" FontSize="24" FontWeight="Bold" Height="51" HorizontalAlignment="Left" Margin="12,792,0,0" Name="label11" VerticalAlignment="Top" />
+        <Label Content="Data:" FontSize="36" FontWeight="Bold" Height="64" HorizontalAlignment="Left" Margin="12,531,0,0" Name="label12" VerticalAlignment="Top" />
     </Grid>
 </Window>

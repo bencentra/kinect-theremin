@@ -50,9 +50,9 @@ namespace kinect_theremin
             // Set up the UI
             freqLabel.Content = _player.Frequency;
             ampLabel.Content = _player.Amplitude;
-            for (int i = 0; i < _player.frequencyDict.Count; i++)
+            for (int i = 0; i < _player.Notes.Count; i++)
             {
-                keyBox.Items.Add(_player.frequencyDict.ElementAt(i).Key);
+                keyBox.Items.Add(_player.Notes.ElementAt(i));
             }
             keyBox.SelectedIndex = 0;
             // Initialize the wave player
@@ -137,7 +137,7 @@ namespace kinect_theremin
             Point ampHandPos = new Point(tempAmp.X, tempAmp.Y);
 
             // Determine the frequency based on the position of the right hand
-            double freqValue = 1 - freqHandPos.Y / skeletonImage.Height;
+            double freqValue = 1 - freqHandPos.Y / guideCanvas.Height;
             float customFreq;
             // If guides are enabled, determine the exact chromatic note to play 
             if (_enableGuides)
@@ -147,7 +147,7 @@ namespace kinect_theremin
                 customFreq = LinearToLog(freqValue);  
 
             // Determine the amplitude based on the position of the left hand
-            double ampValue = 1 - ampHandPos.Y / skeletonImage.Height;
+            double ampValue = 1 - ampHandPos.Y / guideCanvas.Height;
             float customAmp = (float) ampValue;
             
             // Update the wave
@@ -157,6 +157,7 @@ namespace kinect_theremin
                 freqLabel.Content = customFreq;
                 _player.Amplitude = customAmp;
                 ampLabel.Content = customAmp;
+                DetermineNoteByFreq(customFreq);
             }
         }
 
@@ -206,7 +207,7 @@ namespace kinect_theremin
         // Draw frequency "guides" for differentiating each note
         private void DrawGuides()
         {
-            int width = 50;
+            int width = 75;
             int height = 5;
             double freqX;
             // Determine which side to draw each set of guides on
@@ -219,12 +220,12 @@ namespace kinect_theremin
                 freqX = 0;
             }
             // Draw the frequency guides
-            for (int i = 1; i < FREQ_INTERVALS ; i++)
+            for (int i = 0; i < FREQ_INTERVALS ; i++)
             {
                 Rectangle guide = new Rectangle();
                 guide.Width = width;
                 guide.Height = height;
-                guide.Fill = new SolidColorBrush(Colors.Gray);
+                guide.Fill = new SolidColorBrush(Colors.Black);
                 guide.StrokeThickness = 1;
                 guideCanvas.Children.Add(guide);
                 Canvas.SetTop(guide, _freqInterval * (i));
@@ -252,9 +253,8 @@ namespace kinect_theremin
 
         private float GetChromaticNoteFrequency(double value)
         {
-            int chromaticNote = (int)Math.Floor(value * (FREQ_INTERVALS + 1));
+            int chromaticNote = (int)Math.Ceiling(value * (FREQ_INTERVALS + 1));
             double chromaticValue = (double)chromaticNote / (FREQ_INTERVALS);
-            Console.WriteLine(chromaticNote + " --- " + chromaticValue);
             float chromaticFreq = LinearToLog(chromaticValue);
             return chromaticFreq;
         }
@@ -267,13 +267,29 @@ namespace kinect_theremin
             if (_enableGuides)
             {
                 _enableGuides = false;
+                tunerLabel.Visibility = Visibility.Hidden;
                 ClearGuides();
             }
             // If guides are currently disabled, enable them and draw them on the canvas
             else
             {
                 _enableGuides = true;
+                tunerLabel.Visibility = Visibility.Visible;
                 DrawGuides();
+            }
+        }
+
+        // Find the note (as a string) being played (by frequency)
+        private void DetermineNoteByFreq(float freq)
+        {
+            for (int i = 0; i < _player.Frequencies.Count; i++)
+            {
+                float currentFreq = _player.Frequencies.ElementAt(i);
+                float mod = (float) freq % currentFreq;
+                if ( mod < .5 || mod > currentFreq - .5 ) {
+                    tunerLabel.Content = _player.Notes.ElementAt(i);
+                    break;
+                }
             }
         }
     }
